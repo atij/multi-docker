@@ -1,0 +1,17 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t atij/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run atij/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t atij/multi-client ./client
+  - docker build -t atij/multi-nginx ./nginx
+  - docker build -t atij/multi-server ./server
+  - docker build -t atij/multi-worker ./worker
+  # log and push to docker hub
+  - 
