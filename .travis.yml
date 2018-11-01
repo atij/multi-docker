@@ -14,4 +14,8 @@ after_success:
   - docker build -t atij/multi-server ./server
   - docker build -t atij/multi-worker ./worker
   # log and push to docker hub
-  - 
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push atij/milti-worker
+  - docker push atij/milti-nginx
+  - docker push atij/milti-server
+  - docker push atij/milti-worker
